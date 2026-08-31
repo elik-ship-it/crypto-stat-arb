@@ -19,3 +19,16 @@ single-asset momentum/reversal. Pairs trading targets the spread between two
 correlated coins, a joint property that can be predictable even when each coin's
 own return series looks like a random walk. Proceeding with rolling-correlation
 pair selection (Phase 3) rather than a single-asset momentum strategy.
+## Phase 3: Pair Selection
+
+Selected pairs using a two-stage screen: rolling 180-day price-level correlation
+(threshold 0.9, top-3 matches per coin) followed by an Engle-Granger cointegration
+test (OLS residual spread, ADF p-value < 0.05). Correlation alone produced several
+spurious matches driven by shared directional drift rather than a real relationship
+(e.g. gas/vechain, correlation 0.97 but cointegration p-value 0.63) — the
+cointegration screen filters these out. 143 candidate pairs tested, 87 passed both
+screens; well above the ~7 expected by chance at a 5% threshold, suggesting real
+signal rather than multiple-testing noise. Also excluded stablecoins/pegged assets
+(USD- and EUR-pegged tokens, gold-backed tokens) as a separate category before
+pair search, since their trivial near-flat price series otherwise dominates
+correlation rankings without representing a tradeable relationship.
