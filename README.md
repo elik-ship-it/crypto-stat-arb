@@ -54,3 +54,12 @@ the portfolio (a simple starting design — risk-parity or cointegration-strengt
 weighting is a natural extension). Verified no look-ahead bias by using
 yesterday's position to compute today's return. Resulting daily portfolio
 returns: mean 0.039%, std 0.67% — a plausible, not yet cost-adjusted range.
+## Phase 6: Execution Costs & Threshold Selection
+
+Applied 20 bps cost per unit of position change. Net-of-cost annualized return
+and Sharpe rise cleanly from exit=0.1 to exit=0.5 (Sharpe 0.44 -> 0.71 -> 1.06)
+with roughly stable volatility. Exit=0.7 shows a much higher raw return but a
+single day with a +31% portfolio return — investigation confirmed this is
+driven by one pair on one day, not genuine strategy edge, so 0.7 was rejected
+as fragile despite its nominally higher Sharpe (1.34). Selected exit=0.5 as
+the working threshold going into the full backtest.
