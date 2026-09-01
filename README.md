@@ -32,3 +32,15 @@ signal rather than multiple-testing noise. Also excluded stablecoins/pegged asse
 (USD- and EUR-pegged tokens, gold-backed tokens) as a separate category before
 pair search, since their trivial near-flat price series otherwise dominates
 correlation rankings without representing a tradeable relationship.
+## Phase 4: Signal Generation
+
+Computed 90-day rolling hedge ratio (beta), spread, and z-score for all 87 pairs.
+Sanity-checked the top 3 pairs by cointegration p-value visually — z-scores
+oscillate and repeatedly cross the ±1 entry threshold rather than trending or
+sitting flat. Across all 87 pairs, mean threshold-crossing frequency (~29.6%)
+closely matches the ~31.7% theoretical rate for a standard normal distribution,
+supporting that spreads are behaving as genuine mean-reverting series rather
+than artifacts. Crossing frequency varies noticeably by pair (47-277 out of
+~640 valid days) — low-frequency pairs may reflect calmer spreads or,
+alternatively, weaker mean-reversion than the in-sample cointegration test
+suggested; worth revisiting if backtest performance looks weak for those pairs.
