@@ -44,3 +44,13 @@ than artifacts. Crossing frequency varies noticeably by pair (47-277 out of
 ~640 valid days) — low-frequency pairs may reflect calmer spreads or,
 alternatively, weaker mean-reversion than the in-sample cointegration test
 suggested; worth revisiting if backtest performance looks weak for those pairs.
+## Phase 5: Portfolio Construction
+
+Converted z-scores into positions via a stateful entry/exit rule (enter at
+|z|>1, exit at |z|<0.2, hold in between) rather than a per-day threshold rule,
+since positions have memory. Sized each pair's position by its rolling hedge
+ratio for dollar-neutrality, then equal-weighted across all 87 pairs to form
+the portfolio (a simple starting design — risk-parity or cointegration-strength
+weighting is a natural extension). Verified no look-ahead bias by using
+yesterday's position to compute today's return. Resulting daily portfolio
+returns: mean 0.039%, std 0.67% — a plausible, not yet cost-adjusted range.
