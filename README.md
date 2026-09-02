@@ -134,3 +134,28 @@ Note: OLS residuals always average to exactly zero by construction when the
 regression includes an intercept, so the information ratio must be computed
 as annualized alpha / annualized residual volatility — not from the mean of
 the residuals directly.
+## Phase 10: Clustering-Based Pair Selection (Differentiator)
+
+Implemented K-means clustering as an alternative to Phase 3's correlation-
+threshold pair candidate generation (flagged as unfinished future work in the
+reference project), keeping the cointegration filter identical for a fair
+comparison. Refactored the walk-forward engine into a reusable function
+accepting any pair-selection method, verified to reproduce Phase 7's exact
+result before running the comparison.
+
+| Method | Ann. Return | Ann. Vol | Sharpe | Max DD |
+|---|---|---|---|---|
+| Correlation + Cointegration | 5.37% | 9.31% | 0.577 | -10.11% |
+| K-Means + Cointegration | 9.04% | 9.22% | 0.980 | -6.56% |
+
+K-means outperforms on every metric, and the improvement is robust (no single
+outlier day driving it — worst-day comparison shows consistently milder tails,
+not one lucky period). However, the honest driver is pair count, not smarter
+selection: K-means averaged 607 candidate pairs per period vs. 132 for the
+correlation method (a 4.6x difference), since it removes the 0.9 correlation
+threshold as a pre-filter and lets cointegration alone decide validity. The
+more precise conclusion: Phase 3's correlation threshold was likely too
+restrictive, screening out many pairs that would have passed the (more
+rigorous) cointegration test anyway. The result is better attributed to
+increased diversification than to superior pair *quality* — a distinction
+worth stating plainly rather than overclaiming.
