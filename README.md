@@ -106,3 +106,31 @@ half of rebalance periods positive, half negative) rather than uniform
 outperformance. The 136-day drawdown duration is a meaningful practical
 consideration: a real allocator would need to tolerate over half a year of
 underwater performance before this strategy's edge reasserted itself.
+## Phase 9: Benchmark Comparison & Purification
+
+Compared walk-forward strategy returns against buy-and-hold BTC over the same
+out-of-sample window:
+
+| Metric | Value |
+|---|---|
+| Strategy Total Return | 9.46% |
+| BTC Buy-and-Hold Total Return | -25.41% |
+| Beta to BTC | 0.077 |
+| Annualized Alpha | 6.15% |
+| R-squared | 0.082 |
+| Information Ratio (purified) | 0.689 |
+
+Beta near zero and low R^2 confirm the strategy is genuinely close to
+market-neutral by construction (dollar-neutral, hedge-ratio-sized positions),
+not secretly carrying BTC exposure. The information ratio (0.689) exceeds the
+raw Sharpe (0.577) precisely because so little of the strategy's volatility is
+attributable to BTC — most of its risk is idiosyncratic to the pairs
+themselves. Combined with Phase 7's overfitting diagnosis and data-quality
+fix, this is the project's core result: a modest but genuine, largely
+market-independent source of return, honestly arrived at rather than
+overstated.
+
+Note: OLS residuals always average to exactly zero by construction when the
+regression includes an intercept, so the information ratio must be computed
+as annualized alpha / annualized residual volatility — not from the mean of
+the residuals directly.
