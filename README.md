@@ -87,3 +87,22 @@ finding: naive backtesting without a walk-forward structure and without data
 quality screening would have produced a materially misleading conclusion in
 either direction (falsely optimistic in-sample, falsely pessimistic before
 the data fix).
+## Phase 8: Performance Evaluation
+
+Full walk-forward tear sheet (net of costs, cleaned data):
+
+| Metric | Value |
+|---|---|
+| Annualized Return | 5.37% |
+| Annualized Volatility | 9.31% |
+| Sharpe Ratio | 0.577 |
+| Max Drawdown | -10.11% |
+| Max Drawdown Duration | 136 days (~6.5 months) |
+| Total Return (period) | 9.46% |
+
+A modest, realistic risk-adjusted return rather than a dramatic one — consistent
+with Phase 7's period breakdown, which showed genuine regime dependence (roughly
+half of rebalance periods positive, half negative) rather than uniform
+outperformance. The 136-day drawdown duration is a meaningful practical
+consideration: a real allocator would need to tolerate over half a year of
+underwater performance before this strategy's edge reasserted itself.
