@@ -63,3 +63,27 @@ single day with a +31% portfolio return — investigation confirmed this is
 driven by one pair on one day, not genuine strategy edge, so 0.7 was rejected
 as fragile despite its nominally higher Sharpe (1.34). Selected exit=0.5 as
 the working threshold going into the full backtest.
+## Phase 7: Walk-Forward Backtest (Corrected)
+
+Initial walk-forward result showed Sharpe -0.16, driven substantially by a
+single-day -13.6% portfolio loss. Investigation traced this to a bad data
+point in `meta-2-2` (single-day price ~10x off from surrounding days) and
+revealed a broader pattern: several thinly-traded coins (monad,
+jupiter-exchange-solana, openeden) showed repeated extreme single-day moves
+consistent with unreliable Yahoo data rather than genuine volatility.
+
+Added a filter excluding any coin with more than 2 days of >50% single-day
+moves. Rerunning the walk-forward backtest on the cleaned universe:
+
+- Annualized return: 5.37%
+- Annualized volatility: 9.31%
+- Sharpe ratio: 0.577
+- Max daily loss: -3.3% (down from -13.6%)
+
+Still meaningfully below the in-sample Sharpe of 1.06 from Phase 6 — expected,
+since in-sample testing overstates performance by construction. The gap
+between in-sample and walk-forward results is itself the project's central
+finding: naive backtesting without a walk-forward structure and without data
+quality screening would have produced a materially misleading conclusion in
+either direction (falsely optimistic in-sample, falsely pessimistic before
+the data fix).
