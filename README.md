@@ -1,3 +1,28 @@
+# Crypto Statistical Arbitrage — Pairs Trading Strategy
+
+## Summary
+
+Tests whether a correlation/cointegration-based pairs-trading strategy
+generates genuine, market-neutral risk-adjusted returns in cryptocurrency
+markets, out-of-sample and net of realistic execution costs.
+
+**Headline result:** a walk-forward-validated pairs strategy on a 134-coin
+universe achieves a 0.577 Sharpe ratio (0.980 with K-means-based pair
+selection), with near-zero beta to BTC (0.077) and a positive purified alpha
+(6.15% annualized, information ratio 0.689) — evidence of genuine
+market-neutral skill rather than disguised crypto market exposure.
+
+**Process, not just results:** the project's more important finding may be
+methodological. A naive in-sample backtest showed an inflated 1.06 Sharpe;
+proper walk-forward validation revealed the true out-of-sample figure was
+initially negative (-0.16), traced to a bad data point in one coin's price
+history, and recovered to 0.577 after a systematic data-quality fix. This
+gap between naive and rigorous backtesting is the project's central lesson.
+
+**Stack:** Python (pandas, numpy, statsmodels, scikit-learn), data from
+CoinGecko (universe ranking) + yfinance (price history).
+
+See phase-by-phase methodology and findings below.
 This project tests whether a rolling-correlation pairs-trading strategy generates risk-adjusted returns in cryptocurrency markets, out-of-sample, net of realistic execution costs. Universe: top ~200–300 coins by trading volume. Method: walk-forward pair selection and mean-reversion signals on the spread. [Date range TBD once data is pulled.]
 ## Data
 
